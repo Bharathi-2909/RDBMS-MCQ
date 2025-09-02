@@ -91,7 +91,7 @@
   </div>
 
   <script>
-    // Full Question Bank (50+)
+    // Question Bank (50+ questions)
     const questionBank = [
       // Subqueries
       {q:"Which query inside another query is called?", options:["Main query","Subquery","Join","View"], answer:"Subquery"},
@@ -138,33 +138,34 @@
       {q:"Which keyword defines a function in PL/SQL?", options:["FUNCTION","PROC","DEFINE","FUN"], answer:"FUNCTION"}
     ];
 
+    let questions = [];
+
     // Login function
     function login() {
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
+      const defaultPass = "rdbms2025";
 
-      if(username === "" || password === "") {
-        alert("Please enter username and password!");
+      if(username === "") {
+        alert("⚠️ Please enter your name or email!");
         return;
       }
 
-      // Show quiz section
-      document.getElementById("loginSection").classList.remove("active");
-      document.getElementById("quizSection").classList.add("active");
-
-      // Display student name
-      document.getElementById("displayName").innerText = username;
-
-      loadQuiz();
+      if(password === defaultPass) {
+        document.getElementById("loginSection").classList.remove("active");
+        document.getElementById("quizSection").classList.add("active");
+        document.getElementById("displayName").innerText = username;
+        loadQuiz();
+      } else {
+        alert("❌ Invalid password! Correct password is: rdbms2025");
+      }
     }
 
-    // Get 20 random questions
+    // Pick random questions
     function getRandomQuestions(bank, count) {
       let shuffled = [...bank].sort(() => 0.5 - Math.random());
       return shuffled.slice(0, count);
     }
-
-    let questions = [];
 
     function loadQuiz() {
       questions = getRandomQuestions(questionBank, 20);
