@@ -82,36 +82,47 @@
 
     <!-- Quiz Section -->
     <div id="quizSection" class="quiz-container">
-      <h2>Welcome <span id="displayName"></span>! Take the Quiz</h2>
+      <h2>Take the Quiz</h2>
       <form id="quizForm"></form>
       <button type="button" onclick="submitQuiz()">Submit Quiz</button>
     </div>
 
     <!-- Result Section -->
     <div id="resultSection" class="result-container">
-      <h2>🎉 Quiz Completed Successfully!</h2>
-      <p id="user"></p>
+      <h2>🎉 Submit Successful!</h2>
       <p class="score" id="score"></p>
       <button onclick="restartQuiz()">🔄 Restart Quiz</button>
     </div>
   </div>
 
   <script>
-    // Full Question Bank
     const questionBank = [
       {q:"Which query inside another query is called?", options:["Main query","Subquery","Join","View"], answer:"Subquery"},
       {q:"Subqueries in SQL are enclosed within?", options:["{}", "()", "[]", "<>"], answer:"()"},
       {q:"Which operator is often used with subqueries?", options:["IN","LIKE","BETWEEN","ALL"], answer:"IN"},
       {q:"Which SQL command is used to remove a table?", options:["DROP","DELETE","REMOVE","TRUNCATE"], answer:"DROP"},
-      {q:"Which keyword is used to sort results?", options:["ORDER BY","SORT","GROUP BY","RANK"], answer:"ORDER BY"}
+      {q:"Which keyword is used to sort results?", options:["ORDER BY","SORT","GROUP BY","RANK"], answer:"ORDER BY"},
+      {q:"What does DDL stand for?", options:["Data Definition Language","Data Development Language","Dynamic Data Logic","Data Description List"], answer:"Data Definition Language"},
+      {q:"Which SQL clause is used to group rows?", options:["ORDER BY","GROUP BY","HAVING","WHERE"], answer:"GROUP BY"},
+      {q:"Which SQL keyword is used to remove duplicate rows?", options:["UNIQUE","DISTINCT","ONLY","REMOVE"], answer:"DISTINCT"},
+      {q:"Which command is used to change data in a table?", options:["UPDATE","CHANGE","MODIFY","ALTER"], answer:"UPDATE"},
+      {q:"Which SQL function counts rows?", options:["SUM()","COUNT()","TOTAL()","ROWS()"], answer:"COUNT()"},
+      {q:"Which of these is not a type of SQL join?", options:["INNER JOIN","OUTER JOIN","CROSS JOIN","TOP JOIN"], answer:"TOP JOIN"},
+      {q:"Which PL/SQL block type is stored in the database?", options:["Anonymous block","Stored procedure","Temporary block","Script block"], answer:"Stored procedure"},
+      {q:"Which keyword is used in PL/SQL to handle exceptions?", options:["TRY","CATCH","EXCEPTION","HANDLE"], answer:"EXCEPTION"},
+      {q:"Which command is used to save changes in SQL?", options:["COMMIT","SAVE","APPLY","STORE"], answer:"COMMIT"},
+      {q:"Which command is used to undo changes in SQL?", options:["ROLLBACK","UNDO","CANCEL","RESET"], answer:"ROLLBACK"},
+      {q:"In PL/SQL, which keyword is used to exit a loop?", options:["BREAK","EXIT","STOP","LEAVE"], answer:"EXIT"},
+      {q:"Which SQL statement is used to extract data from a database?", options:["GET","EXTRACT","SELECT","FETCH"], answer:"SELECT"},
+      {q:"What does TCL stand for in SQL?", options:["Transaction Control Language","Table Creation Language","Total Control Logic","Temporary Command List"], answer:"Transaction Control Language"},
+      {q:"Which SQL constraint ensures a column cannot have NULL values?", options:["UNIQUE","PRIMARY KEY","NOT NULL","CHECK"], answer:"NOT NULL"},
+      {q:"Which SQL keyword is used to combine results of two queries?", options:["JOIN","MERGE","UNION","INTERSECT"], answer:"UNION"}
     ];
 
     let questions = [];
-    let username = "";
 
-    // Login function
     function login() {
-      username = document.getElementById("username").value.trim();
+      const username = document.getElementById("username").value.trim();
       if(username === "") {
         alert("⚠️ Please enter a username!");
         return;
@@ -119,11 +130,9 @@
 
       document.getElementById("loginSection").classList.remove("active");
       document.getElementById("quizSection").classList.add("active");
-      document.getElementById("displayName").innerText = username;
       loadQuiz();
     }
 
-    // Get random questions
     function getRandomQuestions(bank, count) {
       let shuffled = [...bank].sort(() => 0.5 - Math.random());
       return shuffled.slice(0, count);
@@ -149,7 +158,6 @@
       });
     }
 
-    // Submit Quiz
     function submitQuiz() {
       let score = 0;
       questions.forEach((item, index) => {
@@ -159,16 +167,12 @@
         }
       });
 
-      // Hide quiz and show result
       document.getElementById("quizSection").classList.remove("active");
       document.getElementById("resultSection").classList.add("active");
 
-      // Show result
-      document.getElementById("user").innerText = "Student: " + username;
       document.getElementById("score").innerText = "✅ You scored " + score + " out of " + questions.length;
     }
 
-    // Restart Quiz
     function restartQuiz() {
       document.getElementById("resultSection").classList.remove("active");
       document.getElementById("loginSection").classList.add("active");
